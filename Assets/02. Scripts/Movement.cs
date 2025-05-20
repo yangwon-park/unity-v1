@@ -6,11 +6,6 @@ namespace _02._Scripts
     {
         public float speed; // public -> Unity Editor에서 보임, default: private
 
-        void Start()
-        {
-            
-        }
-
         private void Update()
         {
             if (Input.GetKey(KeyCode.W))
