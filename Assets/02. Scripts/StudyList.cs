@@ -14,9 +14,15 @@ namespace _02._Scripts
             _listNumber.Add(3);
             _listNumber.Add(4);
             _listNumber.Add(5);
-
+            
             Debug.Log($"List Count :: {_listNumber.Count}");
             Debug.Log($"List Last Item :: {_listNumber[^1]}");
+
+            var calculator = new Calculator();
+            
+            calculator.Number1 = 10;
+            
+            Debug.Log($"Calculator Number1 :: {calculator.Number1}");
         }
     }
 }
