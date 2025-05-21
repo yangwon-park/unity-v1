@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _02._Scripts
 {
@@ -19,13 +18,13 @@ namespace _02._Scripts
             get => number2;
             set => number2 = value;
         }
-        
-        int Add()
+
+        private int Add()
         {
             return number1 + number2;
         }
 
-        int Subtract()
+        private int Subtract()
         {
             return number1 - number2;
         }
