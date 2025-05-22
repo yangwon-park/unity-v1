@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 403727916}
   m_Layer: 0
   m_Name: StudyComponent
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -300,8 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5250a0cefaca64d75b6225b950f9fa44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 665095708}
-  changeName: "\uB124\uC784"
+  changeName: "\uD50C\uB808\uC774\uC5B4"
 --- !u!1 &665095708
 GameObject:
   m_ObjectHideFlags: 0

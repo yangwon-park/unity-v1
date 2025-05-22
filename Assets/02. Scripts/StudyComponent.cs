@@ -9,7 +9,8 @@ namespace _02._Scripts
         
         private void Start()
         {
-            _obj = GameObject.Find("Main Camera"); // Hierarchy 전체 기준으로 검색
+            // _obj = GameObject.Find("Main Camera"); // Hierarchy 전체 기준으로 검색
+            _obj = GameObject.FindGameObjectWithTag("Player");
             
             _obj.name = changeName;
         }
