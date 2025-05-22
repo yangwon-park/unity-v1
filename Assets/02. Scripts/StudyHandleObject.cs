@@ -10,9 +10,15 @@ namespace _02._Scripts
 
         void Start()
         {
-            CreateCube();
+            _gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            _gameObject.AddComponent<MeshFilter>().mesh = mesh;
+            _gameObject.AddComponent<MeshRenderer>().material = material;
+            _gameObject.AddComponent<BoxCollider>();
+            
+            // CreateCube();
         }
 
+        // Primitive Object는 기본적으로 생성 메소드가 제공됨
         private void CreateCube()
         {
             _gameObject = new GameObject("Generated Cube");
