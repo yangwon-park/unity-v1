@@ -4,29 +4,18 @@ namespace _02._Scripts
 {
     public class Movement : MonoBehaviour
     {
-        public float speed; // public -> Unity Editor에서 보임, default: private
+        [SerializeField] private float speed;
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.W))
-            {
-                transform.position += Vector3.forward * (speed * Time.deltaTime);
-            }
+            var h = Input.GetAxis("Horizontal");
+            var v = Input.GetAxis("Vertical");
             
-            if (Input.GetKey(KeyCode.S))
-            {
-                transform.position += Vector3.back * (speed * Time.deltaTime);
-            }
+            var dir = new Vector3(h, 0, v);
             
-            if (Input.GetKey(KeyCode.A))
-            {
-                transform.position += Vector3.left * (speed * Time.deltaTime);
-            }
+            Debug.Log($"현재 입력 :: {dir}");
             
-            if (Input.GetKey(KeyCode.D))
-            {
-                transform.position += Vector3.right * (speed * Time.deltaTime);
-            }
+            transform.position += dir * (speed * Time.deltaTime);
         }
     }
 }

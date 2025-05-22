@@ -164,9 +164,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2050003711578765008, guid: 7e984711784f8471b8cf0049c5a36bae, type: 3}
-  destroyObject: {fileID: 1391995598}
-  pos: {x: 0, y: 0, z: 0}
-  rot: {x: 0, y: 0, z: 0, w: 1}
 --- !u!1 &785692121
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &785692122
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -432,7 +429,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1380527667
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -553,7 +550,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1391995599
 MeshCollider:
   m_ObjectHideFlags: 0

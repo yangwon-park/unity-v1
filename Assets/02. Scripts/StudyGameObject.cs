@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace _02._Scripts
@@ -5,28 +6,22 @@ namespace _02._Scripts
     public class StudyGameObject : MonoBehaviour
     {
         [SerializeField] private GameObject prefab;
-        [SerializeField] private GameObject destroyObject;
-        
-        [SerializeField] private Vector3 pos;
-        [SerializeField] private Quaternion rot;
-
         void Start()
         {
-            Debug.Log("--- Call Start ---");
             CreateAmongus();
-         
-            Destroy(destroyObject, 3f);
-        }
-        
-        void OnDestroy()
-        {
-            Debug.Log("--- Call OnDestroy ---");
         }
         
         private void CreateAmongus()
         {
-            GameObject obj = Instantiate(prefab, pos, rot); // Gameobject 셍성 메소드 -> 위치, 회전값도 줄 수 있음
+            GameObject obj = Instantiate(prefab);
             obj.name = "어몽어스 캐릭터";
+
+            var objTransform = obj.transform;
+            var objChildCount = objTransform.childCount;
+            
+            Debug.Log($"Child Object Count :: {objChildCount}");
+            Debug.Log($"First Child Object Name :: {objTransform.GetChild(0).name}");
+            Debug.Log($"Last Child Object Name :: {objTransform.GetChild(objChildCount-1).name}");
         }
     }
 }
