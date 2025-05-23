@@ -664,8 +664,8 @@ MonoBehaviour:
   turretHead: {fileID: 1741939328}
   bulletPrefab: {fileID: 6307012127737979483, guid: bb77053e14074480695ad477b72cfe41, type: 3}
   firePos: {fileID: 248247847}
-  timer: 1
-  cooldownTime: 3
+  timer: 0
+  cooldownTime: 0.5
 --- !u!1 &1741939324
 GameObject:
   m_ObjectHideFlags: 0
