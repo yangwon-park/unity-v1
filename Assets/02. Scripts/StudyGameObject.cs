@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 namespace _02._Scripts
