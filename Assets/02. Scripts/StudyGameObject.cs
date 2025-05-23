@@ -5,7 +5,7 @@ namespace _02._Scripts
     public class StudyGameObject : MonoBehaviour
     {
         [SerializeField] private GameObject prefab;
-        void Start()
+        void Awake()
         {
             CreateAmongus();
         }
