@@ -24,7 +24,7 @@ namespace _02._Scripts
 
             timer += Time.deltaTime;
 
-            if (!(timer >= cooldownTime)) return;
+            if (timer < cooldownTime) return;
             
             timer = 0f;
             
