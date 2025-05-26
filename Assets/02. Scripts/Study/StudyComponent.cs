@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
-namespace _02._Scripts
+namespace _02._Scripts.Study
 {
     public class StudyComponent : MonoBehaviour
     {

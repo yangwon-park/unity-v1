@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _02._Scripts
+namespace _02._Scripts.Study
 {
     public class StudyGameObject : MonoBehaviour
     {
