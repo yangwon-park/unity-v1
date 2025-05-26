@@ -1,16 +1,33 @@
+using System;
 using UnityEngine;
 
-public class StudyUnityEvent : MonoBehaviour
+namespace _02._Scripts.Study
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class StudyUnityEvent : MonoBehaviour
     {
-        
-    }
+        void Awake() // 가장 먼저 1회 실행
+        {
+            Debug.Log("Awake");
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        void OnEnable() // 켜졌을 때 1회 실행
+        {
+            Debug.Log("OnEnable");
+        }
+
+        private void OnDisable()
+        {
+            Debug.Log("OnDisable");
+        }
+
+        void Start() // Awake 이후 1회 실행
+        {
+            Debug.Log("Start");
+        }
+
+        void Update()
+        {
         
+        }
     }
 }
