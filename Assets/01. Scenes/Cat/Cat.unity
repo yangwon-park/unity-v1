@@ -149,7 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eda918140bfe4010830a26660139eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  moveSpeed: 3
+  returnPos: {x: 30, y: 1.5, z: 0}
 --- !u!212 &58078945
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -320,7 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eda918140bfe4010830a26660139eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  moveSpeed: 3
+  returnPos: {x: 30, y: 1.5, z: 0}
 --- !u!1 &919887339
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +474,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eda918140bfe4010830a26660139eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  moveSpeed: 3
+  returnPos: {x: 30, y: 1.5, z: 0}
 --- !u!212 &1247017619
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -554,6 +557,7 @@ GameObject:
   - component: {fileID: 1755002458}
   - component: {fileID: 1755002457}
   - component: {fileID: 1755002459}
+  - component: {fileID: 1755002460}
   m_Layer: 0
   m_Name: Background1
   m_TagString: Untagged
@@ -643,7 +647,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eda918140bfe4010830a26660139eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  moveSpeed: 3
+  returnPos: {x: 30, y: 1.5, z: 0}
+--- !u!114 &1755002460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755002456}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae7e19dc4dbd49109aa4a684b7b57248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
 --- !u!1 &1788662230
 GameObject:
   m_ObjectHideFlags: 0

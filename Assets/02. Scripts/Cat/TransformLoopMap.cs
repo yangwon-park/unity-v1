@@ -4,24 +4,17 @@ namespace _02._Scripts.Cat
 {
     public class TransformLoopMap : MonoBehaviour
     {
-        [SerializeField] private float speed;
-        private Vector3 _returnPos;
-        private float _width;
+        public float moveSpeed = 3f;
 
-        void Start()
-        {
-            var spriteRenderer = GetComponent<SpriteRenderer>();
-            _width = spriteRenderer.bounds.size.x;
-        }
+        public Vector3 returnPos = new Vector3(30f, 1.5f, 0f);
 
         void Update()
         {
-            transform.position += Vector3.left * (speed * Time.deltaTime);
+            transform.position += Vector3.left * (moveSpeed * Time.fixedDeltaTime);
 
-            if (transform.position.x <= -_width)
+            if (transform.position.x <= -30f) // 이미지의 x축 값이 -30을 넘는 순간
             {
-                // 현재 위치에서 상대적으로 이동 (연결 유지)
-                transform.position += Vector3.right * (_width * 2);
+                transform.position = returnPos; // 다시 사용하기 위해서 오른쪽 x = 30으로 초기화
             }
         }
     }
