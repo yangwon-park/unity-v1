@@ -40,8 +40,6 @@ namespace _02._Scripts.Study
             
             var meshRenderer = gameObject.AddComponent<MeshRenderer>();
             meshRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            
-            
         }
     }
 }
