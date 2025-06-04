@@ -7,7 +7,9 @@ namespace _02._Scripts.Pinball
     {
         [SerializeField] private Rigidbody2D leftBarRb;
         [SerializeField] private Rigidbody2D rightBarRb;
-            
+
+        public int totalScore = 0;
+        
         void Update()
         {
             if (Input.GetKey(KeyCode.LeftArrow))

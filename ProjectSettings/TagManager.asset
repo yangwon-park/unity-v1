@@ -8,6 +8,10 @@ TagManager:
   - Bullet
   - Enemy
   - Monster
+  - Score10
+  - Score30
+  - Score50
+  - GameOver
   layers:
   - Default
   - TransparentFX
