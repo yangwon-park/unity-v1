@@ -5,43 +5,40 @@ namespace _02._Scripts.Study
 {
     public class StudyCoroutine : MonoBehaviour
     {
-        private Coroutine _routine;
-     
-        // 아래와 같이 Start Method 자체를 Coroutine으로 동작하게 할 수 있음
-        // IEnumerator Start()
-        // {
-        //     while (true) // Coroutine 내부에서 무한 루프를 돌려도 1f 동안 Wait가 있기 떄문에 부하가 크지 않음 => Update 대용으로 사용
-        //     {
-        //          yield return WaitForSeconds(1f);
-        //     }
-        // }
+        private bool _isStop = false;
         
-        void Start()
+        private void Start()
         {
-            // 호출 방식
-            StartCoroutine(nameof(RoutineA));
-            StartCoroutine(RoutineA());
-            _routine = StartCoroutine(RoutineA());
-            
-            // Stop 방식
-            StopCoroutine(RoutineA());          // 동작 X
-            StopCoroutine(_routine);            // 동작 O
-            StopCoroutine(nameof(RoutineA));    // 동작 O
-            StopAllCoroutines();                // 동작 O
+            StartCoroutine(BombRoutine());
         }
-
-        // 반드시 yield 문을 활용하여 return 해주어야 함
-        // Coroutine은 Invoke와 다르게 Parameter를 전달할 수 있음
-        private IEnumerator RoutineA() // 대기
+        
+        IEnumerator BombRoutine()
         {
-            yield return new WaitForSeconds(2f); // 3초 대기
-            Debug.Log("Coroutine 1단계 실행");
+            var timer = 5;
+
+            while (timer > 0)
+            {
+                Debug.Log($"{timer}초 남았습니다.");
+                yield return new WaitForSeconds(1f);
+                
+                timer--;
+
+                if (_isStop)
+                {
+                    Debug.Log("폭탄이 해제되었습니다.");
+                    yield break;
+                }
+            }
             
-            yield return new WaitForSeconds(2f); // 3초 대기
-            Debug.Log("Coroutine 2단계 실행");
-            
-            yield return new WaitForSeconds(2f); // 3초 대기
-            Debug.Log("Coroutine 3단계 실행");
+            Debug.Log("폭탄이 터졌습니다.");
+        }
+        
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _isStop = true;
+            }
         }
     }
 }
