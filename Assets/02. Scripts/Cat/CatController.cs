@@ -4,50 +4,67 @@ namespace _02._Scripts.Cat
 {
     public class CatController : MonoBehaviour
     {
-        [SerializeField] private Rigidbody2D catRb;
-        [SerializeField] private Animator catAnimator;
-        [SerializeField] private float jumpForce = 10f;
+        [SerializeField] private SoundManager soundManager; // public으로 설정했기 때문에 유니티 상에서 할당 예정
+    
+        private Rigidbody2D catRb;
+        private Animator catAnim;
+    
+        [SerializeField] private float jumpPower = 30f;
+        [SerializeField] private float limitPower = 25f;
+    
         [SerializeField] private bool isGround = false;
+    
         [SerializeField] private int jumpCount = 0;
-        [SerializeField] private SoundManager soundManager;
-        
-        private void Start()
+
+        void Start()
         {
             catRb = GetComponent<Rigidbody2D>();
-            catAnimator = GetComponent<Animator>();
+            catAnim = GetComponent<Animator>();
         }
 
-        private void Update()
+        void Update()
         {
-            OnJump();
+            if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 5)
+            {
+                catAnim.SetTrigger("Jump");
+                catAnim.SetBool("isGround", false);
+                jumpCount++; // 1씩 증가
+                soundManager.OnJumpSound();
+                catRb.AddForceY(jumpPower, ForceMode2D.Impulse);
+
+                if (catRb.linearVelocityY > limitPower) // 자연스러운 점프를 위한 속도 제한
+                    catRb.linearVelocityY = limitPower;
+            }
+
+            var catRotation = transform.eulerAngles;
+            catRotation.z = catRb.linearVelocityY * 2.5f;
+            transform.eulerAngles = catRotation;
         }
 
-        private void OnJump()
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!Input.GetKeyDown(KeyCode.Space) || jumpCount >= 2) return;
-            
-            catAnimator.SetTrigger("Jump");
-            catAnimator.SetBool("isGround", false);
-            catRb.AddForceY(jumpForce, ForceMode2D.Impulse);
-            jumpCount++;
-            soundManager.OnJumpSound();
+            if (other.CompareTag("Apple"))
+            {
+                other.gameObject.SetActive(false);
+            }
         }
 
-        // CollisionEnter -> 충돌이 발생했을 떄
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (!other.gameObject.CompareTag("Ground")) return;
-            
-            catAnimator.SetBool("isGround", true);
-            jumpCount = 0;
-            isGround = true;
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                catAnim.SetBool("isGround", true);
+                jumpCount = 0;
+                isGround = true;
+            }
         }
-        
+
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (!other.gameObject.CompareTag("Ground")) return;
-            
-            isGround = false;
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                isGround = false;
+            }
         }
     }
 }
