@@ -21,8 +21,8 @@ namespace _02._Scripts.Cat
         
             if (transform.position.x <= -returnPosX)
             {
-                // randomPosY = Random.Range(-8f, -3.5f);
-                randomPosY = Random.Range(-8, -3);
+                randomPosY = Random.Range(-8f, -3.5f);
+                // randomPosY = Random.Range(-8, -3);
             
                 transform.position = new Vector3(returnPosX, randomPosY, 0);
             }

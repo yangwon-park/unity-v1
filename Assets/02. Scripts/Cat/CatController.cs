@@ -46,6 +46,9 @@ namespace _02._Scripts.Cat
             if (other.CompareTag("Apple"))
             {
                 other.gameObject.SetActive(false);
+                
+                // 부모 -> Particle Object 접근 -> 활성화
+                other.transform.parent.GetComponent<ItemEvent>().particle.SetActive(true);
             }
         }
 
