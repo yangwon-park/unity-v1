@@ -11,9 +11,7 @@ namespace _02._Scripts.Cat
     
         [SerializeField] private float jumpPower = 30f;
         [SerializeField] private float limitPower = 25f;
-    
         [SerializeField] private bool isGround = false;
-    
         [SerializeField] private int jumpCount = 0;
 
         void Start()
