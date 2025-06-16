@@ -18,7 +18,7 @@ namespace _02._Scripts.Lotto
         }
         
         IEnumerator Start()
-        { 
+        {
             for (var i = 0; i < shakeCount; i++)
             {
                 var r1 = Random.Range(0, indices.Count);
