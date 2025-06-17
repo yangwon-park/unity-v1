@@ -1,0 +1,25 @@
+using UnityEngine;
+
+namespace _02._Scripts.oop
+{
+    public class Person : MonoBehaviour
+    {
+        public string name;
+        public int age;
+
+        public void Walk()
+        {
+            
+        }
+        
+        public void Run()
+        {
+            
+        }
+        
+        public void Jump()
+        {
+            
+        }
+    }
+}
