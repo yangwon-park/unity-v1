@@ -5,6 +5,7 @@ namespace _02._Scripts.Monster
 {
     public abstract class Monster : MonoBehaviour
     {
+        private SpawnManager _spawnManager;
         private SpriteRenderer _sRenderer;
         private Animator _animator;
 
@@ -16,11 +17,12 @@ namespace _02._Scripts.Monster
         private bool _isHit = false;
 
         public abstract void Init();
-
+        
         void Start()
         {
-            _sRenderer = GetComponent<SpriteRenderer>();
+            _sRenderer = GetComponent<SpriteRenderer>(); // GetComponent -> GameObject가 갖고 있는 Component를 찾음
             _animator = GetComponent<Animator>();
+            _spawnManager = FindFirstObjectByType<SpawnManager>(); // Scene에서 찾음
 
             Init();
         }
@@ -29,7 +31,6 @@ namespace _02._Scripts.Monster
         {
             // 클릭할 때 마다 Coroutine이 계속 동작함
             StartCoroutine(Hit(1));
-            // Hit1(1);
         }
 
         void Update()
@@ -67,8 +68,9 @@ namespace _02._Scripts.Monster
             if (hp <= 0)
             {
                 _animator.SetTrigger("Death");
+                _spawnManager.DropCoin(transform.position);
+                
                 yield return new WaitForSeconds(3f);
-
                 Destroy(gameObject);
 
                 yield break;

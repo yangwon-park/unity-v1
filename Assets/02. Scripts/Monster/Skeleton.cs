@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace _02._Scripts.Monster
 {
     public class Skeleton : Monster
