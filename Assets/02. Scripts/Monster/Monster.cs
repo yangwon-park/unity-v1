@@ -68,7 +68,7 @@ namespace _02._Scripts.Monster
             if (hp <= 0)
             {
                 _animator.SetTrigger("Death");
-                _spawnManager.DropCoin(transform.position);
+                _spawnManager.DropItem(transform.position);
                 
                 yield return new WaitForSeconds(3f);
                 Destroy(gameObject);

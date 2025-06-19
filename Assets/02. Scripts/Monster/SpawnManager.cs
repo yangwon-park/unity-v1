@@ -25,14 +25,14 @@ namespace _02._Scripts.Monster
             }
         }
 
-        public void DropCoin(Vector3 dropPos)
+        public void DropItem(Vector3 dropPos)
         {
             var item = Instantiate(items[Random.Range(0, items.Length)], dropPos, Quaternion.identity);
             var rb = item.GetComponent<Rigidbody2D>();
 
             rb.AddForceY(Random.Range(-2f, 2f), ForceMode2D.Impulse);
             rb.AddForceY(3f, ForceMode2D.Impulse);
-            rb.AddTorque(Random.Range(-5f, 5f), ForceMode2D.Impulse);
+            rb.AddTorque(Random.Range(-5f, 5f), ForceMode2D.Impulse); // 2D 에선 Z축 기준으로만 회전함
         }
     }
 }
