@@ -56,7 +56,7 @@ namespace _02._Scripts.Monster
             }
         }
 
-        IEnumerator Hit(float damage)
+        public IEnumerator Hit(float damage)
         {
             if (_isHit) yield break; // Coroutine 즉시 종료하려면 break 써야함
 
