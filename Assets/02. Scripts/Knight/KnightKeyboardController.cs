@@ -8,7 +8,7 @@ namespace _02._Scripts.Knight
         private Rigidbody2D _rigidbody;
         private Vector3 _inputDir;
         private bool _isJumpInput = false;
-        private bool isGround = false;
+        private bool _isGround = false;
         [SerializeField] private float speed = 3f;
         [SerializeField] private float jumpPower = 10f;
 
@@ -36,14 +36,14 @@ namespace _02._Scripts.Knight
         {
             if (!other.gameObject.CompareTag("Ground")) return;
             _animator.SetBool("isGround", true);
-            isGround = true;
+            _isGround = true;
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
             if (!other.gameObject.CompareTag("Ground")) return;
             _animator.SetBool("isGround", false);
-            isGround = false;
+            _isGround = false;
         }
 
         private void HandleInput()
@@ -52,7 +52,7 @@ namespace _02._Scripts.Knight
             var v = Input.GetAxis("Vertical");
             _inputDir = new Vector3(h, v, 0);
 
-            if (Input.GetKeyDown(KeyCode.Space) && isGround)
+            if (Input.GetKeyDown(KeyCode.Space) && _isGround)
             {
                 _isJumpInput = true;
             }
@@ -72,7 +72,8 @@ namespace _02._Scripts.Knight
 
         private void HandleJump()
         {
-            if (!Input.GetKeyDown(KeyCode.Space) || !isGround) return;
+            if (!_isJumpInput || !_isGround) return;
+            // if (!Input.GetKeyDown(KeyCode.Space) || !_isGround) return;
             _rigidbody.AddForceY(jumpPower, ForceMode2D.Impulse);
             _isJumpInput = false;
         }
@@ -89,7 +90,7 @@ namespace _02._Scripts.Knight
             var isMoving = Mathf.Abs(_inputDir.x) > 0.1f;
             _animator.SetBool("isRun", isMoving);
 
-            if (Input.GetKeyDown(KeyCode.Space) && isGround)
+            if (_isJumpInput && _isGround)
             {
                 _animator.SetTrigger("Jump");
             }
