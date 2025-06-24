@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _02._Scripts.Knight
 {
@@ -7,15 +8,17 @@ namespace _02._Scripts.Knight
         private Animator _animator;
         private Rigidbody2D _rigidbody;
         private Vector3 _inputDir;
-        private bool _isJumpInput = false;
         private bool _isGround = false;
         [SerializeField] private float speed = 3f;
         [SerializeField] private float jumpPower = 10f;
+        [SerializeField] private Button jumpButton;
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody2D>();
+            
+            jumpButton.onClick.AddListener(HandleJump);
         }
 
         private void Update()
@@ -67,6 +70,13 @@ namespace _02._Scripts.Knight
             {
                 _rigidbody.linearVelocityX = 0;
             }
+        }
+        
+        private void HandleJump()
+        {
+            if (!_isGround) return;
+            _animator.SetTrigger("Jump");
+            _rigidbody.AddForceY(jumpPower, ForceMode2D.Impulse);
         }
     }
 }
