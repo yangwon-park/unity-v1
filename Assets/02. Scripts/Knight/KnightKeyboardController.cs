@@ -73,7 +73,6 @@ namespace _02._Scripts.Knight
         private void HandleJump()
         {
             if (!_isJumpInput || !_isGround) return;
-            // if (!Input.GetKeyDown(KeyCode.Space) || !_isGround) return;
             _rigidbody.AddForceY(jumpPower, ForceMode2D.Impulse);
             _isJumpInput = false;
         }

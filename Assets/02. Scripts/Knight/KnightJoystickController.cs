@@ -8,7 +8,7 @@ namespace _02._Scripts.Knight
         private Rigidbody2D _rigidbody;
         private Vector3 _inputDir;
         private bool _isJumpInput = false;
-        private bool isGround = false;
+        private bool _isGround = false;
         [SerializeField] private float speed = 3f;
         [SerializeField] private float jumpPower = 10f;
 
@@ -20,10 +20,7 @@ namespace _02._Scripts.Knight
 
         private void Update()
         {
-            HandleInput();
-            HandleSpriteDirection();
-            HandleJump();
-            HandleAnimator();
+            
         }
 
         private void FixedUpdate()
@@ -36,28 +33,30 @@ namespace _02._Scripts.Knight
         {
             if (!other.gameObject.CompareTag("Ground")) return;
             _animator.SetBool("isGround", true);
-            isGround = true;
+            _isGround = true;
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
             if (!other.gameObject.CompareTag("Ground")) return;
             _animator.SetBool("isGround", false);
-            isGround = false;
+            _isGround = false;
         }
 
-        private void HandleInput()
+        public void HandleInput(float x, float y)
         {
-            var h = Input.GetAxis("Horizontal");
-            var v = Input.GetAxis("Vertical");
-            _inputDir = new Vector3(h, v, 0);
+            _inputDir = new Vector3(x, y, 0).normalized;
+            
+            _animator.SetFloat("JoystickX", x);
+            _animator.SetFloat("JoystickY", y);
 
-            if (Input.GetKeyDown(KeyCode.Space) && isGround)
+            if (_inputDir.x != 0)
             {
-                _isJumpInput = true;
+                var scaleX = _inputDir.x > 0 ? 1 : -1;
+                transform.localScale = new Vector3(scaleX, 1, 1);
             }
         }
-
+        
         private void HandleMovement()
         {
             if (_inputDir.x != 0)
@@ -67,31 +66,6 @@ namespace _02._Scripts.Knight
             else
             {
                 _rigidbody.linearVelocityX = 0;
-            }
-        }
-
-        private void HandleJump()
-        {
-            if (!Input.GetKeyDown(KeyCode.Space) || !isGround) return;
-            _rigidbody.AddForceY(jumpPower, ForceMode2D.Impulse);
-            _isJumpInput = false;
-        }
-
-        private void HandleSpriteDirection()
-        {
-            if (_inputDir.x == 0) return; // 이게 없으면 이전 방향으로 다시 바라봄 (왼쪽 보다 오른쪽 가도 다시 왼쪽으로 쳐다봄)
-            var direction = _inputDir.x > 0 ? 1 : -1;
-            transform.localScale = new Vector3(direction, 1f, 1f);
-        }
-
-        private void HandleAnimator()
-        {
-            var isMoving = Mathf.Abs(_inputDir.x) > 0.1f;
-            _animator.SetBool("isRun", isMoving);
-
-            if (Input.GetKeyDown(KeyCode.Space) && isGround)
-            {
-                _animator.SetTrigger("Jump");
             }
         }
     }
