@@ -5,20 +5,25 @@ namespace _02._Scripts.Knight
 {
     public class KnightJoystickController : MonoBehaviour
     {
-        private Animator _animator;
-        private Rigidbody2D _rigidbody;
-        private Vector3 _inputDir;
-        private bool _isGround = false;
         [SerializeField] private float speed = 3f;
         [SerializeField] private float jumpPower = 10f;
         [SerializeField] private Button jumpButton;
+        [SerializeField] private Button attackButton;
+        
+        private Animator _animator;
+        private Rigidbody2D _rigidbody;
+        private Vector3 _inputDir;
+        private bool _isGround;
+        private bool _isAttack;
+        private bool _isCombo;
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody2D>();
             
-            jumpButton.onClick.AddListener(HandleJump);
+            jumpButton.onClick.AddListener(Jump);
+            attackButton.onClick.AddListener(Attack);
         }
 
         private void Update()
@@ -59,7 +64,7 @@ namespace _02._Scripts.Knight
                 transform.localScale = new Vector3(scaleX, 1, 1);
             }
         }
-        
+
         private void HandleMovement()
         {
             if (_inputDir.x != 0)
@@ -71,12 +76,38 @@ namespace _02._Scripts.Knight
                 _rigidbody.linearVelocityX = 0;
             }
         }
-        
-        private void HandleJump()
+
+        private void Jump()
         {
             if (!_isGround) return;
             _animator.SetTrigger("Jump");
             _rigidbody.AddForceY(jumpPower, ForceMode2D.Impulse);
+        }
+
+        private void Attack()
+        {
+            if (!_isAttack)
+            {
+                _isAttack = true;
+                _animator.SetTrigger("Attack");
+            }
+            else
+            {
+                _isCombo = true;
+            }
+        }
+
+        private void CheckCombo()
+        {
+            if (_isCombo)
+            {
+                _animator.SetBool("isCombo", true);
+            }
+            else
+            {
+                _animator.SetBool("isCombo", false);
+                _isAttack = false;
+            }
         }
     }
 }
