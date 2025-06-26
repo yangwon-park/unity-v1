@@ -1,20 +1,40 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
 namespace _02._Scripts.Knight
 {
     public class InteractionEvent : MonoBehaviour
     {
-        public enum InteractionType {Sign, Door, Npc}
+        [SerializeField] private GameObject popup;
+        [SerializeField] private GameObject map;
+        [SerializeField] private GameObject house;
+        [SerializeField] private FadeRoutine fade;
+        [SerializeField] private Vector3 indoorPos;
+        [SerializeField] private Vector3 outdoorPos;
+
+        public enum InteractionType
+        {
+            Sign,
+            Door,
+            Npc
+        }
+
         public InteractionType interactionType;
-        public GameObject popup;
+        public bool isHouse;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-
             if (other.CompareTag("Player"))
             {
                 Interaction(other.transform);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                popup.SetActive(false);
             }
         }
 
@@ -23,15 +43,32 @@ namespace _02._Scripts.Knight
             switch (interactionType)
             {
                 case InteractionType.Sign:
+                    Debug.Log("On Sign Trigger");
                     popup.SetActive(true);
                     break;
                 case InteractionType.Door:
-                
+                    StartCoroutine(DoorRoutine(player));
                     break;
                 case InteractionType.Npc:
-                
+                    Debug.Log("On NPC Trigger");
+                    popup.SetActive(true);
                     break;
             }
+        }
+
+        IEnumerator DoorRoutine(Transform player)
+        {
+            yield return StartCoroutine(fade.Fade(3f, Color.black, true));
+
+            map.SetActive(isHouse);
+            house.SetActive(!isHouse);
+ 
+            player.transform.position = !isHouse ? indoorPos : outdoorPos;
+
+            isHouse = !isHouse;
+            
+            yield return new WaitForSeconds(1f);
+            yield return StartCoroutine(fade.Fade(3f, Color.black, false));
         }
     }
 }
