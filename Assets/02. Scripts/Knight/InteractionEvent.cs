@@ -11,6 +11,7 @@ namespace _02._Scripts.Knight
         [SerializeField] private FadeRoutine fade;
         [SerializeField] private Vector3 indoorPos;
         [SerializeField] private Vector3 outdoorPos;
+        [SerializeField]private KnightSoundManager soundManager;
 
         public enum InteractionType
         {
@@ -20,8 +21,8 @@ namespace _02._Scripts.Knight
         }
 
         public InteractionType interactionType;
-        public bool isHouse;
-
+        private bool _isHouse;
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
@@ -58,14 +59,16 @@ namespace _02._Scripts.Knight
 
         IEnumerator DoorRoutine(Transform player)
         {
+            soundManager.EventSoundPlay("Door");
+            
             yield return StartCoroutine(fade.Fade(3f, Color.black, true));
 
-            map.SetActive(isHouse);
-            house.SetActive(!isHouse);
+            map.SetActive(_isHouse);
+            house.SetActive(!_isHouse);
  
-            player.transform.position = !isHouse ? indoorPos : outdoorPos;
+            player.transform.position = !_isHouse ? indoorPos : outdoorPos;
 
-            isHouse = !isHouse;
+            _isHouse = !_isHouse;
             
             yield return new WaitForSeconds(1f);
             yield return StartCoroutine(fade.Fade(3f, Color.black, false));
