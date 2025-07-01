@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace _02._Scripts.Knight
 {
@@ -9,6 +11,9 @@ namespace _02._Scripts.Knight
         [SerializeField] private FadeRoutine fadeRoutine;
         [SerializeField] private GameObject portalEffect;
         [SerializeField] private GameObject loadingImage;
+        [SerializeField] private Image progressBar;
+        
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
@@ -22,13 +27,18 @@ namespace _02._Scripts.Knight
             portalEffect.SetActive(true);
             yield return fadeRoutine.Fade(3f, Color.white, true);
             
-            // Loading
             loadingImage.SetActive(true);
-            yield return fadeRoutine.Fade(3f, Color.white, false); 
+            yield return fadeRoutine.Fade(3f, Color.white, false);
             
+            // Loading
+            while (progressBar.fillAmount < 1)
+            {
+                progressBar.fillAmount += Time.deltaTime * 0.3f;
+                yield return null;
+            }
+
             // Change Scene
-            
-            // Fade Off
+            SceneManager.LoadScene(1);
         }
     }
 }

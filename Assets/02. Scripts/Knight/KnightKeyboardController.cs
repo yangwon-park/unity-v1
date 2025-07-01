@@ -5,13 +5,14 @@ namespace _02._Scripts.Knight
     public class KnightKeyboardController : MonoBehaviour
     {
         private Animator _animator;
-        private Rigidbody2D _rigidbody;
+        private Rigidbody2D _rb;
         private Vector3 _inputDir;
         
         private bool _isJumpInput;
         private bool _isGround;
         private bool _isAttack;
         private bool _isCombo;
+        private bool _isLadder;
 
         private float _akDamage = 3f;
         private float _speed = 3f;
@@ -20,7 +21,7 @@ namespace _02._Scripts.Knight
         private void Start()
         {
             _animator = GetComponent<Animator>();
-            _rigidbody = GetComponent<Rigidbody2D>();
+            _rb = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
@@ -65,6 +66,20 @@ namespace _02._Scripts.Knight
                 Debug.Log($"other :: {other.gameObject.name}");
                 Debug.Log($"공격 판정. 피해량 :: {_akDamage}");
             }
+            else if (other.CompareTag("Ladder"))
+            {
+                _isLadder = true;
+                _rb.gravityScale = 0;
+                _rb.linearVelocity = Vector2.zero;
+            }
+        }
+        
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (!other.CompareTag("Ladder")) return;
+            _isLadder = false;
+            _rb.gravityScale = 2f;
+            _rb.linearVelocity = Vector2.zero;
         }
 
         private void HandleInput()
@@ -83,18 +98,23 @@ namespace _02._Scripts.Knight
         {
             if (_inputDir.x != 0)
             {
-                _rigidbody.linearVelocityX = _inputDir.x * _speed;
+                _rb.linearVelocityX = _inputDir.x * _speed;
             }
             else
             {
-                _rigidbody.linearVelocityX = 0;
+                _rb.linearVelocityX = 0;
+            }
+
+            if (_isLadder && _inputDir.y != 0)
+            {
+                _rb.linearVelocityY = _inputDir.y * _speed;
             }
         }
 
         private void Jump()
         {
             if (!_isJumpInput || !_isGround) return;
-            _rigidbody.AddForceY(_jumpPower, ForceMode2D.Impulse);
+            _rb.AddForceY(_jumpPower, ForceMode2D.Impulse);
             _isJumpInput = false;
         }
 
@@ -113,6 +133,15 @@ namespace _02._Scripts.Knight
             if (_isJumpInput && _isGround)
             {
                 _animator.SetTrigger("Jump");
+            }
+
+            if (_inputDir.y < 0)
+            {
+                GetComponent<CapsuleCollider2D>().size = new Vector2(0.5f, 0.3f);
+            }
+            else
+            {
+                GetComponent<CapsuleCollider2D>().size = new Vector2(0.5f, 2f);
             }
         }
         

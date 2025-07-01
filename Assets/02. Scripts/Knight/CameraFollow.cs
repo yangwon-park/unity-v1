@@ -12,7 +12,8 @@ namespace _02._Scripts.Knight
         private Transform _target;
         private Vector3 _offset;
         private readonly float _cameraSpeed = 3f;
-        
+        private KnightKeyboardController _knightKeyboardController;
+
         void Start()
         {
             _target = GameObject.FindGameObjectWithTag("Player").transform;
