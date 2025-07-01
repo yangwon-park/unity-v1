@@ -15,6 +15,7 @@ TagManager:
   - Apple
   - Ground
   - Ladder
+  - Return
   layers:
   - Default
   - TransparentFX

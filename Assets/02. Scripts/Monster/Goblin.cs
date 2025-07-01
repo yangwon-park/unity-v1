@@ -6,17 +6,15 @@ namespace _02._Scripts.Monster
     public class Goblin : MonsterCore
     {
         private float _timer;
-        private float _direction;
         private float _idleTime;
         private float _patrolTime;
         private float _percent;
-        private Vector3 _startPosition;
-        private Vector3 _endPosition;
+        // private Vector3 _startPosition;
+        // private Vector3 _endPosition;
         
         private void Start()
         {
-            Init(10f, 3f);
-            _animator = GetComponent<Animator>();
+            Init(hp, speed);
         }
 
         protected override void Init(float hp, float speed)
@@ -38,9 +36,8 @@ namespace _02._Scripts.Monster
                 _animator.SetBool("isRun", true);
                 
                 _patrolTime = Random.Range(1f, 5f);
-                
-                _startPosition = transform.position;
-                _endPosition = _startPosition + Vector3.right * (_direction * _patrolTime);
+                // _startPosition = transform.position;
+                // _endPosition = _startPosition + Vector3.right * (_direction * _patrolTime);
 
                 ChangeState(MonsterState.Patrol);
             }
@@ -48,10 +45,11 @@ namespace _02._Scripts.Monster
 
         protected override void Patrol()
         {
-            _timer += Time.deltaTime;
-            _percent = _timer / _patrolTime;
+            transform.position += Vector3.right * (speed * _direction * Time.deltaTime);
             
-            transform.position = Vector3.Lerp(_startPosition, _endPosition, _percent);
+            _timer += Time.deltaTime;
+            // _percent = (_timer / _patrolTime) * speed;
+            // transform.position = Vector3.Lerp(_startPosition, _endPosition, _percent);
             
             if (_timer >= _patrolTime)
             {
