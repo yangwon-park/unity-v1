@@ -125,8 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c30b01c9c384718a4f0b222ac8a68b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterState: 0
   hp: 3
-  moveSpeed: 1
+  speed: 0
 --- !u!58 &7228896000194906951
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -189,4 +190,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

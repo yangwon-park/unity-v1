@@ -20,6 +20,8 @@ namespace _02._Scripts.Knight
 
         private void Awake()
         {
+            DontDestroyOnLoad(gameObject); // 다른 씬에서도 그대로 사용
+            
             bgmVolume.value = bgmAudioSource.volume;
             eventVolume.value = eventAudioSource.volume;
             
