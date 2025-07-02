@@ -1,27 +1,35 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _02._Scripts.Knight
 {
-    public class KnightKeyboardController : MonoBehaviour
+    public class KnightKeyboardController : MonoBehaviour, IDamageable
     {
+        [SerializeField] private Image hpBar;
+        
         private Animator _animator;
         private Rigidbody2D _rb;
+        private Collider2D _collider;
         private Vector3 _inputDir;
-        
         private bool _isJumpInput;
         private bool _isGround;
         private bool _isAttack;
         private bool _isCombo;
         private bool _isLadder;
-
         private float _akDamage = 3f;
         private float _speed = 3f;
         private float _jumpPower = 10f;
+        private float _hp = 100f;
+        private float _currentHp;
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
             _rb = GetComponent<Rigidbody2D>();
+            _collider = GetComponent<Collider2D>();
+
+            _currentHp = _hp;
+            hpBar.fillAmount = _currentHp / _hp;
         }
 
         private void Update()
@@ -56,15 +64,16 @@ namespace _02._Scripts.Knight
             _animator.SetBool("isGround", false);
             _isGround = false;
         }
-        
+
+
         // Collider가 아예 움직임 자체가 없으면 OnOff하여도 동작되지 않음
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Monster"))
             {
-                Debug.Log($"other :: {other.name}");
-                Debug.Log($"other :: {other.gameObject.name}");
-                Debug.Log($"공격 판정. 피해량 :: {_akDamage}");
+                other.GetComponent<IDamageable>()?.TakeDamage(_akDamage);
+                other.GetComponent<Animator>()?.SetTrigger("Hit");
             }
             else if (other.CompareTag("Ladder"))
             {
@@ -73,13 +82,35 @@ namespace _02._Scripts.Knight
                 _rb.linearVelocity = Vector2.zero;
             }
         }
-        
+
         private void OnTriggerExit2D(Collider2D other)
         {
             if (!other.CompareTag("Ladder")) return;
             _isLadder = false;
             _rb.gravityScale = 2f;
             _rb.linearVelocity = Vector2.zero;
+        }
+
+        public void TakeDamage(float damage)
+        {
+            _currentHp -= damage;
+            
+            hpBar.fillAmount = _currentHp / _hp;
+            
+            Debug.Log($"현재 체력 :: {_currentHp}");
+            Debug.Log($"현재 체력 퍼센트 :: {hpBar.fillAmount}");
+            
+            if (_currentHp <= 0f)
+            {
+                Death();
+            }
+        }
+
+        public void Death()
+        {
+            _animator.SetTrigger("Death");
+            _collider.enabled = false;
+            _rb.gravityScale = 0;
         }
 
         private void HandleInput()
@@ -144,7 +175,7 @@ namespace _02._Scripts.Knight
                 GetComponent<CapsuleCollider2D>().size = new Vector2(0.5f, 2f);
             }
         }
-        
+
         private void Attack()
         {
             if (!_isAttack)
