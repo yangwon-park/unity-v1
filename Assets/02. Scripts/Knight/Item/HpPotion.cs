@@ -8,22 +8,20 @@ namespace _02._Scripts.Knight.Item
         public ItemManager Inventory { get; set; }
         public GameObject Obj { get; set; }
         public string Name { get; set; }
-        public Sprite ItemSprite { get; set; }
+        public Sprite Image { get; set; }
 
         private void Start()
         {
             Inventory = FindFirstObjectByType<ItemManager>();
             Obj = gameObject;
             Name = name;
-            ItemSprite  = GetComponent<SpriteRenderer>().sprite;
+            Image  = GetComponent<SpriteRenderer>().sprite;
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                Get();
-            }
+            if (!other.gameObject.CompareTag("Player")) return;
+            Get();
         }
 
         public void Get()
@@ -34,7 +32,7 @@ namespace _02._Scripts.Knight.Item
 
         public void Use()
         {
-            Debug.Log("Use Hp Potion");
+            Debug.Log("Use Item");
         }
     }
 }

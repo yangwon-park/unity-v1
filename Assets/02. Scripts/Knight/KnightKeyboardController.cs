@@ -97,9 +97,6 @@ namespace _02._Scripts.Knight
             
             hpBar.fillAmount = _currentHp / _hp;
             
-            Debug.Log($"현재 체력 :: {_currentHp}");
-            Debug.Log($"현재 체력 퍼센트 :: {hpBar.fillAmount}");
-            
             if (_currentHp <= 0f)
             {
                 Death();

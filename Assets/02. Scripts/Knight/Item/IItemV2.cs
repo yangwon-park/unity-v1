@@ -7,7 +7,7 @@ namespace _02._Scripts.Knight.Item
         ItemManager Inventory { get; set; }
         GameObject Obj { get; set; }
         string Name { get; set; }
-        Sprite ItemSprite { get; set; }
+        Sprite Image { get; set; }
 
         void Get();
         void Use();
