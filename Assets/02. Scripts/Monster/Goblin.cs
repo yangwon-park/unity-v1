@@ -68,8 +68,6 @@ namespace _02._Scripts.Monster
         protected override void Init(float hp, float speed, float attackDamage, float attackCoolTime)
         {
             base.Init(hp, speed, attackDamage, attackCoolTime);
-            
-            Debug.Log("Goblin init");
         }
 
         protected override void Idle()

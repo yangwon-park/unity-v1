@@ -6,15 +6,18 @@ namespace _02._Scripts.Knight.Item
 {
     public class Slot : MonoBehaviour
     {
+        private IItemV2 _item;
         [SerializeField] private Image image;
         [SerializeField] private Button slot;
-        private IItemV2 _item;
-        
+
         public bool isEmpty = true;
-        
+
         private void Awake()
         {
+            slot = GetComponent<Button>();
             slot.onClick.AddListener(UseItem);
+            
+            image = transform.GetChild(0).GetComponent<Image>();
         }
 
         private void OnEnable()
@@ -22,7 +25,7 @@ namespace _02._Scripts.Knight.Item
             slot.interactable = !isEmpty;
             image.gameObject.SetActive(!isEmpty);
         }
-        
+
         // Inventory에서 실행
         public void AddItem(IItemV2 item)
         {
@@ -31,15 +34,15 @@ namespace _02._Scripts.Knight.Item
             image.SetNativeSize();
             isEmpty = false;
         }
-        
-        public void UseItem()
+
+        private void UseItem()
         {
             if (_item == null) return;
             _item.Use();
             ClearSlot();
         }
-        
-        public void ClearSlot()
+
+        private void ClearSlot()
         {
             _item = null;
             isEmpty = true;
